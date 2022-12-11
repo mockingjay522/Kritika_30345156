@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>Final Exam Set B</title>
+  <style>
+    body{
+      margin: 10px;
+      padding: 10px;
+    }
+    form{
+      text-align:center;
+      background-color: cyan;
+      margin: 15px;
+      padding: 15px;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+  <script th:inline="javascript">
+    var u = [[${session.e}]];
+    if(u==1){
+      alert('Amount Cannot be 0');
+    }
+  </script>
+  <script th:inline="javascript">
+    var u = [[${session.e}]];
+    if(u==2 || u ==3){
+      alert('Data cannot be blank');
+    }
+  </script>
+</head>
+<body>
+<div>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Salesman Name</th><th>Washing Machine</th><th>Refrigerator</th><th>Music System</th>
+  </tr>
+  </thead>
+  <tbody>
+<!--  <tr th:each="p:${listTransactions}">-->
+<!--    <td th:text="${p.getName()}"></td>-->
+<!--    <td th:text="${p.getAmount()}"></td>-->
+<!--    <td th:text="${p.get()}"></td>-->
+<!--    <td th:text="${p.getAmount()}"></td>-->
+<!--    <td th:text="${p.getDot()}"></td>-->
+  </tr>
+  </tbody>
+</table>
+</div>
+<div>
+<form method="post" th:action="@{save}">
+  <label>Salesman Name</label>
+  <input type="text" name="name" th:value="${sales.name}">
+  <label>Item Type</label>
+    <select name ="item" th:value="${sales.item}">
+    <option value="Washing Machine">Washing Machine</option>
+    <option value="Refrigerator">Refrigerator</option>
+    <option value="Music System">Music System</option>
+    </select>
+    <label>Sales Amount</label>
+    <input type="number" name="amount" th:value="${sales.amount}">
+    <label>Transaction Date</label>
+    <input id = "today" type="date" name="dot" th:value="${sales.dot}">
+  <br>
+  <button type="submit" class="btn-primary">Save</button>
+</form>
+</div>
+<div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Transaction Code</th><th>Salesman</th><th>Item</th><th>Amount</th><th>Transaction Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p:${listTransactions}">
+      <td th:text="${p.getId()}"></td>
+      <td th:text="${p.getName()}"></td>
+      <td th:text="${p.getItem()}"></td>
+      <td th:text="${p.getAmount()}"></td>
+      <td th:text="${p.getDot()}"></td>
+      <td>
+        <a class="btn btn-danger" onClick="return confirm('Are you sure you want to delete the record ?')" th:href="@{delete(id=${p.id})}">Delete</a>
+      </td>
+      <td>
+        <a class="btn btn-success" th:href="@{edit(id=${p.id})}">Edit</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
